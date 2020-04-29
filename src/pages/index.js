@@ -9,7 +9,7 @@ const IndexPage = () => {
         <Layout>
             <Head title="Home" />
             <h1>Hello.</h1>
-            <h2>I'm Andrew, a full-stack developer living in beautiful Philadelphia.</h2>
+            <h2>I'm Adiya, CS-major with experience in web development, IoT Systems Enginnering and Data Science Research. </h2>
         </Layout>
     )
 }
