@@ -1,43 +1,48 @@
 import React from 'react'
-import { Link, graphql, useStaticQuery } from 'gatsby'
+import { graphql } from 'gatsby'
+import get from 'lodash/get'
 
+import Seo from '../components/seo'
 import Layout from '../components/layout'
-import blogStyles from './blog.module.scss'
-import Head from "../components/head"
+import Hero from '../components/hero'
+import ArticlePreview from '../components/article-preview'
 
-const BlogPage = () => {
-    const data = useStaticQuery(graphql`
-        query {
-            allContentfulBlogPost ( sort: { fields: publishedDate, order: DESC } ) {
-                edges {
-                    node {
-                        title
-                        slug
-                        publishedDate(formatString:"MMMM Do, YYYY")
-                    }
-                }
-            }
-        }
-    `)
+class BlogIndex extends React.Component {
+  render() {
+    const posts = get(this, 'props.data.allContentfulBlogPost.nodes')
 
     return (
-        <Layout>
-            <Head title="Blog"/>
-            <h1>Blog</h1>
-            <ol className={blogStyles.posts}>
-                {data.allContentfulBlogPost.edges.map((edge) => {
-                    return (
-                        <li className={blogStyles.post}>
-                            <Link to={`/blog/${edge.node.slug}`}>
-                                <h2>{edge.node.title}</h2>
-                                <p>{edge.node.publishedDate}</p>
-                            </Link>
-                        </li>
-                    )
-                })}
-            </ol>
-        </Layout>
+      <Layout location={this.props.location}>
+        <Seo title="Blog" />
+        <Hero title="Blog" />
+        <ArticlePreview posts={posts} />
+      </Layout>
     )
+  }
 }
 
-export default BlogPage
+export default BlogIndex
+
+export const pageQuery = graphql`
+  query BlogIndexQuery {
+    allContentfulBlogPost(sort: { fields: [publishDate], order: DESC }) {
+      nodes {
+        title
+        slug
+        publishDate(formatString: "MMMM Do, YYYY")
+        tags
+        heroImage {
+          gatsbyImageData(
+            layout: FULL_WIDTH
+            placeholder: BLURRED
+            width: 424
+            height: 212
+          )
+        }
+        description {
+          raw
+        }
+      }
+    }
+  }
+`

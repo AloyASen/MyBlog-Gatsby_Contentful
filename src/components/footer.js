@@ -1,24 +1,16 @@
 import React from 'react'
-import { graphql, useStaticQuery } from 'gatsby'
 
-import footerStyles from './footer.module.scss'
+import Container from './container'
+import * as styles from './footer.module.css'
 
-const Footer = () => {
-    const data = useStaticQuery(graphql`
-        query {
-            site {
-                siteMetadata {
-                    author
-                }
-            }
-        }
-    `)
-
-    return (
-        <footer className={footerStyles.footer}>
-            <p>Created by {data.site.siteMetadata.author}, © 2020</p>
-        </footer>
-    )
-}
+const Footer = () => (
+  <Container as="footer">
+    <div className={styles.container}>
+      Built with <a href="https://contentful.com/">Contentful</a> and{' '}
+      <a href="https://gatsbyjs.com">Gatsby</a> &middot;{' '}
+      <a href="https://github.com/contentful/starter-gatsby-blog">Source</a>
+    </div>
+  </Container>
+)
 
 export default Footer
