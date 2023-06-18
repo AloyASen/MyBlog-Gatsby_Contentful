@@ -36,8 +36,8 @@ if (!spaceId || !accessToken) {
 
 module.exports = {
   siteMetadata: {
-    title: "Gatsby Contentful Starter",
-    description: "Official Contentful Gatsby Starter",
+    title: "Aditya A Sen Speaks",
+    description: "Discussions, Market Watch, Testimonials",
   },
   plugins: [
     "gatsby-transformer-sharp",
